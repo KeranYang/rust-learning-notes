@@ -1,0 +1,1 @@
+/Users/kyang5/Desktop/development/rust-learning-notes/crate/library/my-library/target/debug/libmy_library.rlib: /Users/kyang5/Desktop/development/rust-learning-notes/crate/library/my-library/src/lib.rs

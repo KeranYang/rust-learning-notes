@@ -3,6 +3,8 @@ fn main() {
     vector_collections_with_heap_data();
     vector_use_enum_to_store_different_types();
     questions_about_vector();
+
+    hash_map();
 }
 
 fn vector_collections_with_stack_data() {
@@ -30,6 +32,7 @@ fn vector_collections_with_stack_data() {
     // iterator methods
     let mut v_ref = &mut v1;
     for num_ref in v_ref.iter() {
+        // Note: v_ref.iter() immutably borrows v_ref for the duration of the loop.
         // v_ref.push(*num_ref); // this won't compile because we are trying to mutate v_ref while iterating over it
     }
 }
@@ -87,4 +90,32 @@ fn questions_about_vector() {
      */
     // Answer: the program will pass. The expected output is "5 5".
     // The key point here is that v2 is a vector of **mutable references** to the elements in v.
+}
+
+fn hash_map() {
+    use std::collections::HashMap;
+    let mut scores: HashMap<String, i32> = HashMap::new();
+    // inserting key-value pairs
+    scores.insert(String::from("Alice"), 10);
+    scores.insert(String::from("Bob"), 20);
+    // accessing values - get returns an Option<&V>
+    if let Some(score) = scores.get("Alice") {
+        println!("Alice's score: {}", score);
+    }
+    // iterating over key-value pairs
+    // Note: why do we use &scores here instead of scores?
+    // because iter() borrows the HashMap immutably, so we need to pass a reference to it.
+    for (name, score) in &scores {
+        println!("{}: {}", name, score);
+    }
+
+    // Note: HashMap takes ownership of the keys and values inserted into it.
+    let team_name = String::from("Charlie");
+    let team_score = 30;
+    scores.insert(team_name, team_score);
+    // println!("{}", team_name); // this line would cause a compile error because team_name has been moved into the HashMap.
+
+    // updating a value using the entry API
+    scores.entry(String::from("Alice")).and_modify(|e| *e += 5).or_insert(0);
+    println!("Alice's updated score: {}", scores.get("Alice").unwrap());
 }

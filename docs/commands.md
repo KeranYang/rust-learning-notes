@@ -1,5 +1,15 @@
 * `rustc` checks and compiles your program, but does not execute it.
 * `cargo new` creates a new Rust project with the necessary files and directory structure.
+* `cargo new project_name --bin` creates a new binary Rust project.
+* `cargo new project_name --lib` creates a new library Rust project.
 * `cargo build` compiles your Rust project and generates an executable file.
 * `cargo run` compiles and runs your Rust project in one step.
 * `RUST_BACKTRACE=1 cargo run` enables detailed error messages and stack traces when your program panics.
+* `cargo test` runs the tests defined in your Rust project.
+* `cargo test -- --test-threads=n` runs tests using `n` threads, where `n` is the number of threads you want to use.
+* `cargo test -- --show-output` shows the output of tests even if they pass.
+* `cargo test function_name` runs a specific test function named `function_name`.
+* `cargo test partial_name` runs all test functions that contain `partial_name` in their names.
+* `cargo test module_name` runs all test functions in the specified module named `module_name`.
+* `cargo test -- --ignored` runs only the tests that are marked with the `#[ignore]` attribute.
+* `cargo test -- --include-ignored` runs all tests, including those marked with the `#[ignore]` attribute.

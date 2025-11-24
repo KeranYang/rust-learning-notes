@@ -6,6 +6,7 @@ fn main() {
     closures_with_borrowing();
     closures_taking_ownership();
     fn_once_fn_mut_fn_example();
+    iterators_example();
 }
 
 // simple closures that capture variables from their environment
@@ -115,7 +116,7 @@ fn fn_once_fn_mut_fn_example() {
 
     // Note: all closures implement FnOnce because they can all be called at least once.
 
-    // Real World example - unwrap_or_else is designed to take a closure that implements FnOnce,
+    // Real World example - unwrap_or_else is designed to take a closure F that implements FnOnce,
     // For two reasons:
     // 1. unwrap_or_else only needs to call the closure once to get the default value.
     // 2. every closure implements FnOnce, so accepting FnOnce makes the function more flexible.
@@ -133,4 +134,32 @@ fn fn_once_fn_mut_fn_example() {
     let opt: Option<String> = None;
     let value = opt.unwrap_or_else(|| String::from("Default Value"));
     println!("Value: {}", value);
+}
+
+fn iterators_example() {
+    let vec = vec![1, 2, 3, 4, 5];
+
+    // consuming adaptor - method that consumes the iterator
+    let vec_iter = vec.iter();
+    let sum: i32 = vec_iter.sum();
+    println!("Sum: {}", sum);
+    // we are not allowed to use vec_iter here because it has been consumed by sum()
+    // println!("{:?}", vec_iter); // -> compile error: use of moved value: `vec_iter`
+
+    // producing adaptor - method that produces a new iterator
+    let squared: Vec<i32> = vec.iter().map(|x| x * x).collect();
+    println!("Squared: {:?}", squared);
+
+    // closure that captures its environment
+    let multiplier = 3;
+    let multiplied: Vec<i32> = vec.iter().map(|x| x * multiplier).collect();
+    println!("Multiplied by {}: {:?}", multiplier, multiplied);
+
+    // Using a closure with the `for_each` iterator adaptor to print each element
+    vec.iter().for_each(|x| println!("Element: {}", x));
+
+    // Note:
+    // Iterators are lazy - they do not perform any computation until they are consumed by a consuming adaptor.
+    // Iterators can make code cleaner.
+    // Performance - Rust's iterators are zero-cost abstractions, meaning they have no runtime overhead compared to manual loops.
 }

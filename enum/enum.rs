@@ -117,6 +117,9 @@ enum IpAddr {
     V6(String),
 }
 
+// Note: enums are stored on the stack.
+// Rust knows the size of each variant at compile time,
+// so it allocates enough space on the stack to hold the largest variant.
 enum Message {
     Quit,
     Move { x: i32, y: i32 },

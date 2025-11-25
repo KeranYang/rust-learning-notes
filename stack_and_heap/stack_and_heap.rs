@@ -37,4 +37,8 @@ fn main() {
 
     // Note: rust will automatically free the heap memory when the variable goes out of scope.
     // here, an implicit drop(s2) and drop(s3) will be called at the end of this main function.
+
+    // Note: In other words, heap deallocation principle - If a variable owns heap data,
+    // when rust deallocates that variable's stack memory,
+    // it also deallocates the heap memory associated with that variable.
 }

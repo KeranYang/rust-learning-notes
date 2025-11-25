@@ -38,14 +38,18 @@ fn owner_can_modify() {
     // Note: when ownership is moved, the new owner can modify the data.
     println!("--- the owner of heap data can modify it ---");
     let s = String::from("hello");
-    let mut s1 = s;
+    let mut s1 = s; // ownership of s is moved to s1
     s1.push_str(", world!");
     println!("s1 = {}", s1);
+    // s is no longer valid here because its ownership is moved to s1.
+    // println!("s = {}", s); // -> compile error
 
     // Note: a function that takes ownership can also modify the data.
     let s2 = String::from("goodbye");
     let s3 = add_suffix(s2);
     println!("s3 = {}", s3);
+    // s2 is no longer valid here because its ownership is moved to add_suffix.
+    // println!("s2 = {}", s2); // -> compile error
 }
 
 fn rust_evaluate_every_branch() {

@@ -38,7 +38,7 @@ fn closures_can_infer_types() {
 
     // Note: closures can infer types, but only once.
     let result_1 = add_one_v2(5); // x is inferred as i32
-    // let result_2 = add_one_v4(5.5); // -> compile error: expected i32, found floating-point number
+    // let result_2 = add_one_v2(5.5); // -> compile error: expected i32, found floating-point number
 }
 
 // closures that borrow variables from their environment
@@ -79,6 +79,7 @@ fn closures_taking_ownership() {
     // the thread needs to own s2, so we use `move` to transfer ownership into the closure.
     // what does `move` do here?
     // it forces the closure to take ownership of ANY variables it uses from its environment.
+    // in this case, since the thread only uses s2, only s2 is moved into the closure.
     let handle = thread::spawn(move || {
         println!("{}", s2); // s2 is moved into the closure
     });
@@ -143,15 +144,17 @@ fn iterators_example() {
     let vec_iter = vec.iter();
     let sum: i32 = vec_iter.sum();
     println!("Sum: {}", sum);
-    // we are not allowed to use vec_iter here because it has been consumed by sum()
+    // we are not allowed to use vec_iter here because it has been **consumed by sum()**
     // println!("{:?}", vec_iter); // -> compile error: use of moved value: `vec_iter`
 
     // producing adaptor - method that produces a new iterator
+    // **map() produces** a new iterator by applying a closure to each element
     let squared: Vec<i32> = vec.iter().map(|x| x * x).collect();
     println!("Squared: {:?}", squared);
 
     // closure that captures its environment
     let multiplier = 3;
+    // multiplier is captured by the closure
     let multiplied: Vec<i32> = vec.iter().map(|x| x * multiplier).collect();
     println!("Multiplied by {}: {:?}", multiplier, multiplied);
 

@@ -1,13 +1,30 @@
 fn main() {
-    vector_collections_with_stack_data();
-    vector_collections_with_heap_data();
+    vector_structure();
+    vector_with_ownership();
     vector_use_enum_to_store_different_types();
     questions_about_vector();
 
     hash_map();
 }
 
-fn vector_collections_with_stack_data() {
+fn vector_structure() {
+    // Note: Vec<T> is a smart pointer that owns a heap-allocated array of elements of type T.
+    // (remember that a smart pointer is a pointer with additional metadata and capabilities)
+    //
+    // **capabilities**:
+    // 1. Dynamic resizing: it can grow and shrink as elements are added or removed.
+    // 2. Contiguous memory allocation: elements are stored in a contiguous block of memory on the heap.
+    // 3. Random access: elements can be accessed in constant time using indexing.
+    //
+    // What is stored in stack and what is stored in heap?
+    // **metadata**
+    // The Vec<T> struct itself is stored on the stack, which contains three fields:
+    // 1. A pointer to the heap-allocated array
+    // 2. The length of the vector (number of elements currently stored)
+    // 3. The capacity of the vector (total number of elements that can be stored without reallocating)
+    // The actual elements of the vector are stored in a contiguous block of memory on the heap,
+    // regardless of the type T. E.g., if T is i32, the heap will store a contiguous array of i32 values.
+
     // basic syntax
     // creation
     let mut v: Vec<i32> = Vec::new(); // standard way
@@ -37,7 +54,7 @@ fn vector_collections_with_stack_data() {
     }
 }
 
-fn vector_collections_with_heap_data() {
+fn vector_with_ownership() {
     // vector of Strings
     let mut v: Vec<String> = vec![
         String::from("a"),

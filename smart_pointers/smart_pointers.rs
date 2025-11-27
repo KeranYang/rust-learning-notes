@@ -15,9 +15,12 @@ Regular references v.s. Smart pointers
 
 Examples of Smart Pointers in Rust - Box, String, Vec, etc.
 
-Smart Pointers implement the Deref and Drop traits
+Smart Pointers can implement the Deref and Drop traits
 - Deref trait allows smart pointers to behave like regular references.
 - Drop trait allows smart pointers to have custom cleanup logic when they go out of scope.
+
+We can skip implementing Deref if the smart pointer is not meant to be used like a reference.
+We can skip implementing Drop if no custom cleanup is needed.
 
 When to use Smart Pointers
 - When you have a type whose size is not known at compile time or is too large to store on the stack,
@@ -45,6 +48,9 @@ enum List {
 // Box provide the capability of **indirection** and **heap allocation**.
 fn box_example() {
     let list = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))));
+    // Note: how is a Box<T> stored in memory?
+    // The Box<T> itself is stored on the stack, which contains a pointer to the heap-allocated data of type T.
+    // The size of Box<T> is known at compile time, and it's 8 bytes on a 64-bit system.
     let x = Box::new(5);
     assert_eq!(*x + 5, 10); // dereference the Box to get the value inside
     // why we can use *x to dereference the Box?
@@ -106,4 +112,6 @@ impl<T> Drop for MyBox<T> {
 // Note: Rust doesn't allow us to call drop explicitly.
 // Once the Drop trait is implemented for a type, the ownership system will automatically call the drop method
 // when the value goes out of scope.
+
+// Note: smart pointers do not affect performance significantly.
 

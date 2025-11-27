@@ -8,10 +8,14 @@
 // (If we know, we could just assign single ownership to that last owner.)
 
 // Note: Rc<T> is used in single-threaded scenarios only.
+
+// Note: Rc<T> doesn't provide interior mutability.
+
 use std::rc::Rc;
 fn main() {
     problem_statement();
     solution_with_rc();
+    how_does_drop_work_with_rc();
 }
 
 fn problem_statement() {
@@ -49,4 +53,29 @@ fn solution_with_rc() {
     } // d goes out of scope here
     println!("a count after d goes out of scope = {}", Rc::strong_count(&a)); // should be 3
     // Note: when all Rc pointers to the data go out of scope, the data is automatically deallocated.
+}
+
+struct Example;
+
+impl Drop for Example {
+    fn drop(&mut self) {
+        println!("Dropping Example!");
+    }
+}
+
+fn how_does_drop_work_with_rc() {
+    let a = Rc::new(Example);
+    let b = Rc::clone(&a);
+    println!("A");
+    drop(b); // here, the reference count decreases but the data is not deallocated yet.
+    // hence, the Drop implementation is not called yet.
+    println!("B");
+    drop(a); // here, the reference count reaches zero, so the data is deallocated.
+    // hence, the Drop implementation is called here.
+    println!("C");
+    // Output:
+    // A
+    // B
+    // Dropping Example!
+    // C
 }

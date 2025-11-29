@@ -77,6 +77,8 @@ fn vector_with_ownership() {
 }
 
 fn vector_use_enum_to_store_different_types() {
+    // Note: vectors only support storing elements of the same type.
+    // To store different types in the same vector, we can use an enum to encapsulate the different types.
     enum SpreadsheetCell {
         Int(i32),
         Float(f64),

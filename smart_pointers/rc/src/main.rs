@@ -3,6 +3,8 @@
 // It keeps track of the number of references to the data it points to, allowing multiple parts of a program to share ownership of the same data.
 // When the last reference to the data goes out of scope, the data is automatically deallocated.
 
+// Rc only allows immutable access to the data it points to.
+
 // Note: when to use Rc<T>?
 // We want to use multiple ownership of heap data, but we don't know at compile time which owner will finish using the data last.
 // (If we know, we could just assign single ownership to that last owner.)

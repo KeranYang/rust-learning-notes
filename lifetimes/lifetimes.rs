@@ -52,6 +52,7 @@ fn main() {
     lifetimes_in_functions();
     lifetimes_in_structs();
     static_lifetimes();
+    lifetimes_when_casting_between_types();
 }
 
 fn lifetimes_in_functions() {
@@ -99,5 +100,30 @@ fn static_lifetimes() {
     // 'static lifetime means that the reference is valid for the entire duration of the program.
     let s: &'static str = "I have a static lifetime.";
     println!("{}", s);
+}
+
+fn lifetimes_when_casting_between_types() {
+    use std::fmt::Display;
+    /*
+    fn add_displayable<T: Display>(
+        v: &mut Vec<Box<dyn Display>>,
+        t: T
+    ) {
+        v.push(Box::new(t));
+    }
+    This function does not compile because the compiler cannot determine the lifetime of t and the Box<dyn Display> created from it.
+    Rust requires that the trait object dyn Display must outlive the vector v,
+    however the lifetime of T is not specified, so it may not live long enough.
+
+    Marking T as 'static solves the compilation error but is too restrictive, as it requires that T must live for the entire duration of the program.
+
+    Instead, we can introduce a lifetime parameter 'a to express that T must live at least as long as the trait object.
+    */
+    fn add_displayable<'a, T: Display + 'a>(
+        v: &mut Vec<Box<dyn Display + 'a>>,
+        t: T
+    ) {
+        v.push(Box::new(t));
+    }
 }
 

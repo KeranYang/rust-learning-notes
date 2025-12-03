@@ -4,6 +4,7 @@
 * `cargo new project_name --lib` creates a new library Rust project.
 * `cargo build` compiles your Rust project and generates an executable file.
 * `cargo run` compiles and runs your Rust project in one step.
+* `cargo run -- arg1 arg2` passes `arg1` and `arg2` as command-line arguments to your program when running it.
 * `RUST_BACKTRACE=1 cargo run` enables detailed error messages and stack traces when your program panics.
 * `cargo test` runs the tests defined in your Rust project.
 * `cargo test -- --test-threads=n` runs tests using `n` threads, where `n` is the number of threads you want to use.

@@ -112,3 +112,4 @@ mod tests {
 
 // Note: With Rc supporting multiple ownership and RefCell enabling interior mutability,
 // we can combine them to create data structures that allow multiple owners to mutate shared data.
+// see an example in smart_pointers/ref_cycle.

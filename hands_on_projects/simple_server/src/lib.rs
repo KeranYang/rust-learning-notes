@@ -17,6 +17,38 @@ pub struct ThreadPool {
     sender : Option<mpsc::Sender<Job>>,
 }
 
+impl ThreadPool {
+    pub fn new(size: usize) -> ThreadPool {
+        assert!(size > 0);
+        let mut workers = Vec::with_capacity(size);
+        let (sender, receiver) = mpsc::channel();
+
+        // this receiver is shared among multiple worker threads,
+        // hence we need to wrap it in an Arc to ensure thread-safe shared ownership
+        // also use Mutex to ensure that only one worker can access the receiver at a time
+        let receiver = Arc::new(Mutex::new(receiver));
+
+        for id in 0..size {
+            workers.push(Worker::new(id, Arc::clone(&receiver)));
+        }
+
+        ThreadPool {
+            workers,
+            sender: Some(sender),
+        }
+    }
+
+    pub fn execute<F>(&self, f: F)
+    where
+        F: FnOnce() + Send + 'static,
+    {
+        println!("ThreadPool::execute called");
+        // start sending the job to the worker threads
+        let job = Box::new(f);
+        self.sender.as_ref().unwrap().send(job).unwrap();
+    }
+}
+
 impl Drop for ThreadPool {
     fn drop(&mut self) {
         // signal all workers to shut down by dropping the sender
@@ -63,36 +95,5 @@ impl Worker {
             id,
             thread: Some(thread_handle),
         }
-    }
-}
-
-impl ThreadPool {
-    pub fn new(size: usize) -> ThreadPool {
-        assert!(size > 0);
-        let mut workers = Vec::with_capacity(size);
-        let (sender, receiver) = mpsc::channel();
-
-        // this receiver is shared among multiple worker threads,
-        // hence we need to wrap it in an Arc to ensure thread-safe shared ownership
-        let receiver = Arc::new(Mutex::new(receiver));
-
-        for id in 0..size {
-            workers.push(Worker::new(id, Arc::clone(&receiver)));
-        }
-
-        ThreadPool {
-            workers,
-            sender: Some(sender),
-        }
-    }
-
-    pub fn execute<F>(&self, f: F)
-    where
-        F: FnOnce() + Send + 'static,
-    {
-        println!("ThreadPool::execute called");
-        // start sending the job to the worker threads
-        let job = Box::new(f);
-        self.sender.as_ref().unwrap().send(job).unwrap();
     }
 }

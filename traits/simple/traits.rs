@@ -73,7 +73,8 @@ fn notify_two_items_v0(item1: &impl Summary, item2: &impl Summary) {
     println!("Item 2: {}", item2.summarize());
 }
 
-// using generic type parameter with trait bound to ensure both parameters are of the same type.
+// Note: using generic type parameter with trait bound
+// to ensure both parameters are of the same type.
 fn notify_two_items_v1<T: Summary>(item1: &T, item2: &T) {
     println!("Item 1: {}", item1.summarize());
     println!("Item 2: {}", item2.summarize());

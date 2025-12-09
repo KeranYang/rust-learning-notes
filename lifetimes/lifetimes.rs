@@ -126,4 +126,3 @@ fn lifetimes_when_casting_between_types() {
         v.push(Box::new(t));
     }
 }
-

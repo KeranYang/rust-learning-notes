@@ -55,3 +55,20 @@ fn generic_function_dsts<T: ?Sized>(t: &T) {}
 // Note: the ?Trait syntax with the meaning of "may or may not implement Trait" is only applicable to Sized trait.
 // Note: see that we also change the parameter type to &T,
 // because DSTs must be used behind some kind of pointer.
+
+// Question
+// Determine whether the program will pass the compiler.
+// Answer: No, it will not pass the compiler.
+//
+// fn is_equal<T: Eq>(t1: &T, t2: &T) -> bool {
+//   t1 == t2
+// }
+// fn main() {
+//   println!("{}", is_equal("Hello", "world"));
+// }
+//
+// Explanation:
+//
+// The call to is_equal passes values of string slices (&str) as arguments.
+// That means T is inferred to be str. However, str is a dynamically sized type (DST),
+// which means it's only allowed to be used in the generic function if T is marked as ?Sized.

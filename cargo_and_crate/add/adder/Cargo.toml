@@ -1,0 +1,8 @@
+[package]
+name = "adder"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Depend on the add_one crate in the same workspace.
+add_one = { path = "../add_one" }

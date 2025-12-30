@@ -24,9 +24,6 @@ impl Config {
 
 // dyn Error means the function can return any type that implements the Error trait.
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    // Use fs::read_to_string to read the contents of the file.
-    // Note: the ? operator is used to propagate errors, meaning if reading the file fails,
-    // the error will be returned from the run function.
     let contents = fs::read_to_string(config.file_path)?;
 
     let results = if config.ignore_case {
@@ -36,7 +33,6 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     };
 
     for line in results {
-        // use standard output to print each matching line.
         println!("{}", line);
     }
 

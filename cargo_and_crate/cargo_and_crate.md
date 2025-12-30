@@ -57,3 +57,21 @@ You can use `cargo install` to install binary crates from crates.io or from a lo
 ```
 cargo install ripgrep
 ```
+
+# cargo.toml
+
+## features
+
+```toml
+tokio = { version = "1.0", features = ["full"] }
+```
+
+`features` allow you to enable optional functionality in a crate. In this case, the `full` feature enables all optional components of the `tokio` crate.
+
+When attempting to optimize compile time or the end application footprint,
+the application can decide to opt into only the features it uses.
+An example would be:
+
+```toml
+tokio = { version = "1.0", features = ["rt-multi-thread", "macros"] }
+```

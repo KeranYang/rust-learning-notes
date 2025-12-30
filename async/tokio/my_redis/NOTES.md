@@ -1,5 +1,7 @@
 # Notes on Tokio and Async Rust
 
+Mainly from https://tokio.rs/tokio/tutorial.
+
 ## Concurrency v.s. Parallelism
 
 Concurrency is the ability of a system to handle multiple tasks at the same time, while parallelism is the ability to execute multiple tasks simultaneously.

@@ -300,7 +300,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "my-redis"
+name = "my_redis"
 version = "0.1.0"
 dependencies = [
  "bytes",

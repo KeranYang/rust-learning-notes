@@ -1,5 +1,7 @@
 use mini_redis::{client, Result};
 
+/// This is a simple example of a client application.
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Open a connection to the mini-redis server

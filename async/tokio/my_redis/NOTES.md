@@ -16,11 +16,11 @@ Tokio is designed to handle concurrency.
 * If your application is simple and does not require asynchronous operations, using Tokio may add unnecessary complexity.
 * If your application relies heavily on blocking operations, using Tokio may lead to performance issues.
 
-## tokio spawn
+## Spawn
 
 A tokio `task` is an async task that is executed by the Tokio runtime. It's created by `tokio::spawn`.
 
-## the function signature
+### the function signature
 
 ```rust
 
@@ -37,3 +37,7 @@ where
 * `Send` bound to ensure that the future and its output can be safely transferred across thread boundaries.
 
 More details at https://tokio.rs/tokio/tutorial/spawning. Make sure understand the `yield_now` example.
+
+## How to run the server and client
+
+`cargo run --bin server` and `cargo run --bin client`

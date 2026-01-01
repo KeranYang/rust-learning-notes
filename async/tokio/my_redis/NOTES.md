@@ -38,6 +38,15 @@ where
 
 More details at https://tokio.rs/tokio/tutorial/spawning. Make sure understand the `yield_now` example.
 
+## tokio IO
+
+https://tokio.rs/tokio/tutorial/io
+
+Main learning points:
+
+* If we use a buffer to read and write data asynchronously, we need to ensure the buffer can be sent across threads. Therefore, we use `Vec` instead of stack-allocated arrays.
+* EOF - when reading from a stream, if we get 0 bytes read, it indicates that the stream has reached the end (EOF). We need to return from the read loop to avoid busy-waiting.
+
 ## How to run the server and client
 
 `cargo run --bin server` and `cargo run --bin client`

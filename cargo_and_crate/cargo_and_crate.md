@@ -10,6 +10,13 @@ opt-level = 3
 
 Note: opt-level controls the number of optimizations. For dev, we prefer fast compilation over runtime performance, hence opt-level = 0. For release builds, we want maximum performance, so we set opt-level = 3.
 
+# What is crate?
+
+In Rust, a crate is the smallest unit of code distribution and compilation.
+It can be thought of as a package or library that contains Rust source code.
+A crate can be either a binary crate, which produces an executable program,
+or a library crate, which provides reusable functionality that can be included in other crates.
+
 # Publishing a crate to crates.io
 
 ## Making useful documentation comments

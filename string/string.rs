@@ -53,8 +53,8 @@ fn all_about_string() {
   let mut s1 = String::from("Hello, ");
   let s2 = String::from("world!");
   s1.push_str(&s2);
-  println!("can print s because s1 still owns the data: {}", s1);
-  println!("can print s2 because s2 is not moved: {}", s2);
+  println!("can print s1 because s1 still owns the data: {}", s1); // This will print "Hello, world!"
+  println!("can print s2 because s2 is not moved: {}", s2); // This will print "world!"
 
   // Another way of appending is using the + operator.
   // The difference is that the + operator takes ownership of the left operand and returns a new String.

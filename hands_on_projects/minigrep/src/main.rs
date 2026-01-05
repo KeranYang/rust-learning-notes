@@ -4,7 +4,7 @@ use std::process;
 use minigrep::Config;
 
 fn main() {
-    let args : Vec<String> = env::args().collect();
+    let args: Vec<String> = env::args().collect();
     // Use dbg! to print the args vector for debugging.
     // dbg!(&args);
 

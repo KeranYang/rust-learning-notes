@@ -1,6 +1,6 @@
-use std::thread;
-use std::sync::{mpsc, Arc, Mutex};
 use std::sync::mpsc::Receiver;
+use std::sync::{Arc, Mutex, mpsc};
+use std::thread;
 
 // Note: advanced feature - type alias
 // Define a type alias 'Job' for a boxed closure that can be sent across threads
@@ -8,13 +8,14 @@ type Job = Box<dyn FnOnce() + Send + 'static>;
 
 pub struct ThreadPool {
     // 1. the thread pool contains a vector of worker threads
-    workers : Vec<Worker>,
+    workers: Vec<Worker>,
     // 2. the thread pool also includes a sender to send tasks to the worker threads
     // the sender is used to send jobs to the workers via a channel.
     // Why do we use Option here?
     // Because we want to be able to take ownership of the sender when we drop the ThreadPool,
     // allowing us to close the channel and signal the workers to stop.
-    sender : Option<mpsc::Sender<Job>>,
+    // More about using Option to retain ownership in misc/use_option_to_move_ownership.md
+    sender: Option<mpsc::Sender<Job>>,
 }
 
 impl ThreadPool {
@@ -70,7 +71,7 @@ pub struct Worker {
 }
 
 impl Worker {
-    fn new(id : usize, receiver: Arc<Mutex<Receiver<Job>>>) -> Worker {
+    fn new(id: usize, receiver: Arc<Mutex<Receiver<Job>>>) -> Worker {
         let thread_handle = thread::spawn(move || {
             loop {
                 // lock the receiver to get a job
@@ -80,9 +81,12 @@ impl Worker {
                         // release the lock before executing the job, such that other workers can get jobs
                         println!("Worker {} got a job; executing.", id);
                         job();
-                    },
+                    }
                     Err(_) => {
-                        println!("Sender indicated no more messages, stop pulling for worker {}.", id);
+                        println!(
+                            "Sender indicated no more messages, stop pulling for worker {}.",
+                            id
+                        );
                         break;
                     }
                 }

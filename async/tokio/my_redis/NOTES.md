@@ -34,7 +34,7 @@ where
 ```
 
 * `'static` bound to ensure that the future and its output can live for the entire duration of the program.
-* `Send` bound to ensure that the future and its output can be safely transferred across thread boundaries.
+* `Send` bound to ensure that the future and its output can be safely transferred across thread boundaries. It ensures that when we switch between tasks, the intermediate state of the future can be safely persisted in a storage, such that later, when a new task is spawned, the state can be restored. More details in https://tokio.rs/tokio/tutorial/spawning#send-bound.
 
 More details at https://tokio.rs/tokio/tutorial/spawning. Make sure understand the `yield_now` example.
 

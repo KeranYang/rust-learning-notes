@@ -14,7 +14,7 @@ In Rust, both `const` and `static` are used to define values that are constant a
 const MAX_POINTS: u32 = 100_000;
 ```
 
-## `static`
+## `static` aka. global variable
 
 - `static` defines a global variable that has a fixed memory location.
 - It can be mutable if declared with the `mut` keyword, but mutable statics require unsafe code to access.
@@ -29,7 +29,7 @@ static mut COUNTER: u32 = 0;
 ## Summary of Differences
 
 | Feature         | `const`                       | `static`                            |
-|-----------------|-------------------------------|-------------------------------------|
+| --------------- | ----------------------------- | ----------------------------------- |
 | Memory Location | Inlined at each use           | Fixed memory location               |
 | Mutability      | Always immutable              | Can be mutable (with `mut`)         |
 | Initialization  | Must be a constant expression | Can be initialized at runtime       |

@@ -13,3 +13,16 @@ println!("{}", r#fn);
 let raw_str = r#"This is a "raw" string with no need to escape quotes!"#;
 println!("{}", raw_str);
 ```
+
+# Use [] in the comment
+
+Square brackets, when used in rust documentation comments, create intradoc-links to other items in the code base.
+
+E.g., Using a proper code editor, one can apply `go to definition` to jump to the definition of [MapMode] from the comment below.
+
+```rust
+/// get_map_mode returns the [MapMode] if the server is a mapper.
+/// None if the server is not a mapper.
+pub fn get_map_mode(&self) -> Option<MapMode>
+...
+```

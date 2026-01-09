@@ -16,11 +16,12 @@ fn recoverable_error_example() {
     use std::io::{self, Read};
 
     fn read_username_from_file() -> Result<String, io::Error> {
-        // Note: the ? operator is a shorthand for propagating errors.
+        // Note: the ? operator is a shorthand for **propagating errors**.
         // If the Result is Ok, it unwraps the value inside and continues.
         // If the Result is Err, it returns the error from the current function.
-        // To use it, the function must a.
-        // return a Result type and b. the error type must match the error type of the Result being propagated.
+        // To use it, the function must
+        // a. return a Result type and
+        // b. the error type must match the error type of the Result being propagated.
         let mut f = File::open("username.txt")?;
         let mut s = String::new();
         f.read_to_string(&mut s)?;
@@ -38,7 +39,7 @@ fn recoverable_error_example() {
                     Err(e) => return Err(e),
                 },
                 _ => return Err(io::Error::new(e.kind(), "Problem opening the file")),
-            }
+            },
         };
         // Continue reading the file...
         Ok(String::new())
@@ -65,5 +66,6 @@ fn unrecoverable_error_example() {
 
     // **expect** to cause a panic with a custom message if the Result is an Err variant.
     // Note: in production code, prefer using expect over unwrap for better error messages with context.
-    let file2 = std::fs::File::open("another_non_existent_file.txt").expect("Failed to open the file");
+    let file2 =
+        std::fs::File::open("another_non_existent_file.txt").expect("Failed to open the file");
 }

@@ -23,6 +23,8 @@ fn main() {
 
   size_of_types();
 
+  index_to_strings_is_not_allowed();
+
   questions_about_string();
 
   // Note: last but not least, String doesn't allow indexing because it's not clear what an index would mean in the context of UTF-8 encoded strings.
@@ -85,6 +87,28 @@ fn size_of_types() {
   println!("Size of &String: {} bytes", size_of::<&String>());
   // &str - Typically 16 bytes on 64-bit systems, includes pointer and length.
   println!("Size of &str: {} bytes", size_of::<&str>());
+}
+
+// Note: indexing into a String is not allowed because it's not clear what an index would mean in the context of UTF-8 encoded strings.
+// Instead, use methods like chars() or bytes() to iterate over the characters or bytes of a String.
+fn index_to_strings_is_not_allowed() {
+  // Let's try initializing a String with emojis
+  let s = String::from("😊");
+  // We can use chars() to iterate over the characters of the String
+  for c in s.chars() {
+    println!("{}", c);
+  } // 😊
+  // Now, if we use bytes(), it's actually 4 bytes because each emoji is represented by 4 bytes in UTF-8 encoding.
+  for b in s.bytes() {
+    println!("{}", b);
+  }
+  // 240
+  // 159
+  // 152
+  // 138
+  // This is exactly why we don't allow indexing into a String.
+
+  // println!("{}", s[1]); -> compile error - error[E0277]: the type `str` cannot be indexed by `{integer}`
 }
 
 fn questions_about_string() {

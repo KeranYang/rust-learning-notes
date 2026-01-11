@@ -1,5 +1,24 @@
 # Rust comparison with other languages
 
+## Why is Rust better than any other language
+
+1. Strong Type System/Strict Compiler to ensure that types are checked at compile time, preventing runtime errors.
+
+- Not such a thing called null pointer. Null pointer is a bad practice that can lead to runtime errors and crashes.
+
+2. Memory Safety: Rust's ownership and borrowing system ensures memory safety without the need for garbage collection.
+
+- Every type is immutable by default.
+- Race conditions are prevented at compile time.
+- Memory leaks are impossible.
+
+## What does rust sacrifice
+
+1. Compile Time: Rust's compile time can be longer than other languages due to its safety features and optimizations.
+2. Binary Size: Rust's binary size can be larger than other languages due to its safety features and optimizations.
+3. Learning Curve: Rust has a steeper learning curve compared to other languages due to its safety features and optimizations.
+4. Readability: Rust's syntax can be more verbose and less readable than other languages.
+
 ## Why is Rust better than JavaScript
 
 Strong Type System/Strict Compiler to ensure that types are checked at compile time, preventing runtime errors.

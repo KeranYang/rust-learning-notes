@@ -21,12 +21,12 @@ or a library crate, which provides reusable functionality that can be included i
 
 ## Making useful documentation comments
 
-* Use `///` and it supports Markdown formatting.
-* Run `cargo doc --open` to generate and view the documentation locally.
-* Document Panics, Errors, and Safety considerations. If unsafe, explain why and how to use it safely.
-* Documentation comments as tests - running `cargo test` will also test the code examples in your documentation comments.
+- Use `///` and it supports Markdown formatting.
+- Run `cargo doc --open` to generate and view the documentation locally.
+- Document Panics, Errors, and Safety considerations. If unsafe, explain why and how to use it safely.
+- Documentation comments as tests - running `cargo test` will also test the code examples in your documentation comments.
 
-```
+````
 /// Adds two numbers together.
 ///
 /// # Examples
@@ -38,15 +38,15 @@ or a library crate, which provides reusable functionality that can be included i
 pub fn add(a: i32, b: i32) -> i32 {
     a + b
 }
-```
+````
 
-* Use `//!` for module-level documentation.
+- Use `//!` for module-level documentation.
 
 ## Publishing
 
-* Ensure your `Cargo.toml` has the necessary metadata: name, version, authors, description, license, repository, etc.
-* `cargo publish --dry-run` to check for issues before publishing.
-* Run `cargo publish` to publish your crate to crates.io.
+- Ensure your `Cargo.toml` has the necessary metadata: name, version, authors, description, license, repository, etc.
+- `cargo publish --dry-run` to check for issues before publishing.
+- Run `cargo publish` to publish your crate to crates.io.
 
 # Cargo Workspaces
 
@@ -82,3 +82,18 @@ An example would be:
 ```toml
 tokio = { version = "1.0", features = ["rt-multi-thread", "macros"] }
 ```
+
+## bins
+
+We can use the `[[bin]]` section to define binary crates within a workspace. See examples in the `adder` folder.
+
+When to use and when not to use `[[bin]]`?
+
+| Situation                       | Use `[[bin]]`? |
+| ------------------------------- | -------------- |
+| Single binary in `src/main.rs`  | ❌ No          |
+| Multiple binaries in `src/bin/` | ❌ No          |
+| Custom binary path              | ✅ Yes         |
+| Custom binary name              | ✅ Yes         |
+| Disable tests/bench/docs        | ✅ Yes         |
+| CLI + daemon in same crate      | ✅ Yes         |

@@ -1,5 +1,6 @@
 [workspace]
 
+# members means a list of crates that are part of the workspace.
 members = [
     "adder",
     "add_one",

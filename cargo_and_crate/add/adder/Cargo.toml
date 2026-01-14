@@ -6,3 +6,13 @@ edition = "2024"
 [dependencies]
 # Depend on the add_one crate in the same workspace.
 add_one = { path = "../add_one" }
+
+
+# [[bin]] means a list of binary crates.
+# How to execute it?
+# cargo run --bin adder
+[[bin]]
+# We can rename the binary crate to something else.
+name = "super_adder"
+# We can also change the path and the name of the entry rust file.
+path = "src/adder.rs"
